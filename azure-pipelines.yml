@@ -1,0 +1,44 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: GoTool@0
+  displayName: 'Use Go 1.14.1'
+  inputs:
+    version: '1.14.1'
+- task: Go@0
+  displayName: 'Install deps'
+  inputs:
+    command: get
+    arguments: '-d'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: Go@0
+  displayName: 'Vet'
+  inputs:
+    command: custom
+    customCommand: vet
+    arguments: '-v ./...'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: Go@0
+  displayName: 'Build'
+  inputs:
+    command: build
+    arguments: '-v .'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: Go@0
+  displayName: 'Test'
+  inputs:
+    command: test
+    arguments: '-timeout 60s -v -race -coverprofile=coverage.txt -covermode=atomic ./...'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+- script: |
+    diff -u <(echo -n) <(gofmt -d -e .)
+  displayName: 'Check gofmt'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+- script: |
+    bash <(curl -s https://codecov.io/bash)
+  displayName: 'Upload coverage'
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
