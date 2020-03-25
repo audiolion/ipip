@@ -1,6 +1,6 @@
 Package ipip (ip is private) checks if a `net.IP` is a private (local) address according to [RFC 1918](https://tools.ietf.org/html/rfc1918) for ip4 and [RFC 4193](https://tools.ietf.org/html/rfc4193) for ip6.
 
-[![GoDoc](https://godoc.org/github.com/mikioh/ipaddr?status.png)](https://pkg.go.dev/github.com/audiolion/ipip)
+[![GoDoc](https://godoc.org/github.com/mikioh/ipaddr?status.png)](https://godoc.org/github.com/audiolion/ipip)
 [![Build Status](https://ryancastner.visualstudio.com/ipip/_apis/build/status/audiolion.ipip?branchName=master)](https://ryancastner.visualstudio.com/ipip/_build/latest?definitionId=1&branchName=master)
 [![codecov](https://codecov.io/gh/audiolion/ipip/branch/master/graph/badge.svg)](https://codecov.io/gh/audiolion/ipip)
 
